@@ -1,17 +1,25 @@
-import { useState } from "react";
+import { Dispatch, SetStateAction, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { theme } from "@/theme";
 
 interface Props {
+  value: string;
+  onTextChange: Dispatch<SetStateAction<string>>;
   placeholder: string;
+  isError?: boolean;
   /**
    * margin bottom
    */
   mb?: number;
 }
 
-export const Input: React.FC<Props> = ({ placeholder, mb }) => {
-  const [text, setText] = useState("");
+export const Input: React.FC<Props> = ({
+  value,
+  onTextChange,
+  placeholder,
+  isError,
+  mb,
+}) => {
   const [isFocused, setIsFocused] = useState(false);
 
   const handleFocus = () => {
@@ -23,37 +31,46 @@ export const Input: React.FC<Props> = ({ placeholder, mb }) => {
   };
 
   const handleTextChange = (text: string) => {
-    setText(text);
+    onTextChange(text);
   };
 
   return (
-    <View
-      style={[
-        styles.wrapper,
-        Boolean(mb) && { marginBottom: mb },
-        isFocused && styles.focusedInput,
-      ]}
-    >
-      {!isFocused && !text && (
-        <Text style={styles.placeholder}>Enter {placeholder}</Text>
-      )}
-      {(isFocused || Boolean(text)) && (
-        <Text style={styles.label}>{placeholder}</Text>
-      )}
-      <TextInput
-        onFocus={handleFocus}
-        onChangeText={handleTextChange}
-        onBlur={handleBlur}
-      />
+    <View style={[styles.container, Boolean(mb) && { marginBottom: mb }]}>
+      <View
+        style={[
+          styles.inputWrapper,
+          isFocused && styles.focusedInput,
+          isError && styles.errorInput,
+        ]}
+      >
+        {!isFocused && !value && (
+          <Text style={[styles.placeholder, isError && styles.errorText]}>
+            Enter {placeholder}
+          </Text>
+        )}
+        {(isFocused || Boolean(value)) && (
+          <Text style={[styles.label, isError && styles.errorText]}>
+            {placeholder}
+          </Text>
+        )}
+        <TextInput
+          onFocus={handleFocus}
+          onChangeText={handleTextChange}
+          onBlur={handleBlur}
+        />
+      </View>
+      {isError && <Text style={styles.errorText}>{placeholder} is </Text>}
     </View>
   );
 };
 
 const styles = StyleSheet.create({
-  wrapper: {
+  container: {
+    width: "100%",
+  },
+  inputWrapper: {
     borderWidth: 1,
     borderColor: "#D8E2E6",
-    width: "100%",
     height: 53,
     borderRadius: 8,
     paddingHorizontal: 8,
@@ -76,5 +93,11 @@ const styles = StyleSheet.create({
   },
   focusedInput: {
     borderColor: theme.colorDarkBlue,
+  },
+  errorInput: {
+    borderColor: "#FF3336",
+  },
+  errorText: {
+    color: "#FF3336",
   },
 });
