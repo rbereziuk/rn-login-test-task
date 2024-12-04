@@ -5,11 +5,17 @@ import { StyleSheet, Text, Pressable } from "react-native";
 interface Props {
   title: string;
   onPress: () => void;
+  disabled?: boolean;
 }
 
-export const Button: React.FC<Props> = ({ title, onPress }) => {
+export const Button: React.FC<Props> = ({ title, onPress, disabled }) => {
+  console.log(disabled);
   return (
-    <Pressable style={{ width: "100%" }} onPress={onPress}>
+    <Pressable
+      style={[styles.contaier, disabled && { opacity: 0.34 }]}
+      onPress={onPress}
+      disabled={disabled}
+    >
       <LinearGradient
         colors={[theme.colorDarkBlue, theme.colorLightBlue]}
         style={styles.buttonGradient}
@@ -23,6 +29,9 @@ export const Button: React.FC<Props> = ({ title, onPress }) => {
 };
 
 const styles = StyleSheet.create({
+  contaier: {
+    width: "100%",
+  },
   buttonGradient: {
     paddingVertical: 20,
     width: "100%",
