@@ -31,9 +31,18 @@ export const Button: React.FC<Props> = ({ title, onPress, disabled }) => {
 const styles = StyleSheet.create({
   contaier: {
     width: "100%",
+    shadowColor: theme.colorButtonShadow,
+    shadowOffset: {
+      width: 0,
+      height: 2,
+    },
+    shadowOpacity: 0.3,
+    shadowRadius: 4.65,
+
+    elevation: 8,
   },
   buttonGradient: {
-    paddingVertical: 20,
+    paddingVertical: 10,
     width: "100%",
     alignItems: "center",
     borderRadius: 80,
