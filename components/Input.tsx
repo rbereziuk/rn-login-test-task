@@ -1,6 +1,7 @@
 import { Dispatch, SetStateAction, useState } from "react";
 import { StyleSheet, Text, TextInput, View } from "react-native";
 import { theme } from "@/theme";
+import { capitalize } from "@/utils/stringHelpers";
 
 interface Props {
   value: string;
@@ -59,7 +60,12 @@ export const Input: React.FC<Props> = ({
           onBlur={handleBlur}
         />
       </View>
-      {isError && <Text style={styles.errorText}>{placeholder} is </Text>}
+      {isError && (
+        <Text style={styles.errorText}>
+          {capitalize(placeholder)} is{" "}
+          {value.length === 0 ? "required" : "invalid"}
+        </Text>
+      )}
     </View>
   );
 };
@@ -74,7 +80,7 @@ const styles = StyleSheet.create({
     height: 53,
     borderRadius: 8,
     paddingHorizontal: 8,
-    paddingTop: 15,
+    justifyContent: "flex-end",
   },
   placeholder: {
     fontSize: 16,
@@ -84,6 +90,7 @@ const styles = StyleSheet.create({
     top: 15,
   },
   label: {
+    textTransform: "capitalize",
     fontSize: 12,
     fontWeight: "400",
     color: theme.colorDarkBlue,
