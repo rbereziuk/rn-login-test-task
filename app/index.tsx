@@ -1,7 +1,8 @@
-import { StatusBar } from "expo-status-bar";
 import { StyleSheet, View } from "react-native";
-import { Button } from "@/components/Button";
 import { useRouter } from "expo-router";
+import { StatusBar } from "expo-status-bar";
+import { Button } from "@/components/Button";
+import { theme } from "@/theme";
 
 export default function App() {
   const router = useRouter();
@@ -16,7 +17,7 @@ export default function App() {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#fff",
+    backgroundColor: theme.colorWhite,
     alignItems: "center",
     justifyContent: "center",
     padding: 20,
