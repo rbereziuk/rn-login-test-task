@@ -7,7 +7,7 @@ Create a login form for the user:
 
 - [x] The user should go from the Home screen to the Login screen
 - [x] The user enters the username and password on the Login screen
-- [ ] If the username or password is invalid, display an error
+- [x] If the username or password is invalid, display an error
 - [ ] If username and password are valid, redirect to the Profile screen
 - [ ] On the Profile screen, show the user's data from the API
 - [ ] Only authorized users can go to the Profile screen

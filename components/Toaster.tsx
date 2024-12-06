@@ -3,7 +3,7 @@ import AntDesign from "@expo/vector-icons/AntDesign";
 import { theme } from "@/theme";
 
 interface Props {
-  text: string;
+  text: string | undefined;
   type: "error";
   style?: ViewStyle;
 }

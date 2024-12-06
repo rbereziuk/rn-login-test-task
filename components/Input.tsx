@@ -1,17 +1,21 @@
 import { Dispatch, SetStateAction, useState } from "react";
-import { StyleSheet, Text, TextInput, View } from "react-native";
+import {
+  StyleSheet,
+  Text,
+  TextInput,
+  TextInputProps,
+  View,
+} from "react-native";
 import { theme } from "@/theme";
 import { capitalize } from "@/utils/stringHelpers";
 
-interface Props {
-  value: string;
-  onTextChange: Dispatch<SetStateAction<string>>;
-  placeholder: string;
-  isError?: boolean;
+interface Props extends TextInputProps {
   /**
    * margin bottom
    */
   mb?: number;
+  isError?: boolean;
+  onTextChange: Dispatch<SetStateAction<string>>;
 }
 
 export const Input: React.FC<Props> = ({
@@ -20,6 +24,7 @@ export const Input: React.FC<Props> = ({
   placeholder,
   isError,
   mb,
+  ...otherProps
 }) => {
   const [isFocused, setIsFocused] = useState(false);
 
@@ -58,6 +63,9 @@ export const Input: React.FC<Props> = ({
           onFocus={handleFocus}
           onChangeText={handleTextChange}
           onBlur={handleBlur}
+          clearButtonMode="unless-editing"
+          style={{ height: 40 }}
+          {...otherProps}
         />
       </View>
       {isError && (

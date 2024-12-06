@@ -2,8 +2,12 @@ import { StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { Toaster } from "@/components/Toaster";
+import { useMutation } from "@tanstack/react-query";
+import { loginUser } from "@/api/login-user";
+import { useRouter } from "expo-router";
+import { SignInContext } from "./_layout";
 
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
@@ -12,13 +16,34 @@ export default function LoginScreen() {
     username: false,
     password: false,
   });
+  const [, setIsSignIn] = useContext(SignInContext);
+
+  const router = useRouter();
+
+  const mutation = useMutation({
+    mutationKey: ["login"],
+    mutationFn: () => loginUser(username, password),
+    onSuccess: (data) => {
+      setIsSignIn(true);
+      router.push("/", {});
+    },
+  });
 
   const handleLogin = () => {
+    const isUserError = username.length > 3 ? false : true;
+    const isPasswordError = password.length > 3 ? false : true;
+
     setError({
-      username: username.length > 3 ? false : true,
-      password: password.length > 3 ? false : true,
+      username: isUserError,
+      password: isPasswordError,
     });
+
+    if (isUserError || isPasswordError) return;
+
+    mutation.mutate();
   };
+
+  console.log("mutation", mutation);
 
   return (
     <View style={styles.screenWrapper}>
@@ -36,16 +61,20 @@ export default function LoginScreen() {
         onTextChange={setPassword}
         isError={error.password}
         mb={15}
+        secureTextEntry={true}
       />
-      <Toaster
-        text="user emil doesn't exist"
-        type="error"
-        style={styles.toaster}
-      />
+      {mutation.isError && (
+        <Toaster
+          text={mutation.failureReason?.message}
+          type="error"
+          style={styles.toaster}
+        />
+      )}
       <Button
         title="Login"
         onPress={handleLogin}
         disabled={!Boolean(username)}
+        isLoading={mutation.isPending}
       />
     </View>
   );

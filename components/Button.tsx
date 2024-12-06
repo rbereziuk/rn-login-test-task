@@ -1,14 +1,20 @@
 import { theme } from "@/theme";
 import { LinearGradient } from "expo-linear-gradient";
-import { StyleSheet, Text, Pressable } from "react-native";
+import { StyleSheet, Text, Pressable, ActivityIndicator } from "react-native";
 
 interface Props {
   title: string;
   onPress: () => void;
   disabled?: boolean;
+  isLoading?: boolean;
 }
 
-export const Button: React.FC<Props> = ({ title, onPress, disabled }) => {
+export const Button: React.FC<Props> = ({
+  title,
+  onPress,
+  disabled,
+  isLoading = false,
+}) => {
   console.log(disabled);
   return (
     <Pressable
@@ -22,7 +28,9 @@ export const Button: React.FC<Props> = ({ title, onPress, disabled }) => {
         start={{ x: 0, y: 1 }}
         end={{ x: 1, y: 1 }}
       >
-        <Text style={styles.text}>{title}</Text>
+        <Text style={styles.text}>
+          {isLoading ? <ActivityIndicator color={theme.colorWhite} /> : title}
+        </Text>
       </LinearGradient>
     </Pressable>
   );
