@@ -7,6 +7,7 @@ interface Props {
   onPress: () => void;
   disabled?: boolean;
   isLoading?: boolean;
+  type?: "primary" | "secondary";
 }
 
 export const Button: React.FC<Props> = ({
@@ -14,8 +15,8 @@ export const Button: React.FC<Props> = ({
   onPress,
   disabled,
   isLoading = false,
+  type = "primary",
 }) => {
-  console.log(disabled);
   return (
     <Pressable
       style={[styles.contaier, disabled && { opacity: 0.34 }]}
@@ -23,12 +24,21 @@ export const Button: React.FC<Props> = ({
       disabled={disabled}
     >
       <LinearGradient
-        colors={[theme.colorDarkBlue, theme.colorLightBlue]}
+        colors={
+          type === "primary"
+            ? [theme.colorDarkBlue, theme.colorLightBlue]
+            : [theme.colorWhite, theme.colorWhite]
+        }
         style={styles.buttonGradient}
         start={{ x: 0, y: 1 }}
         end={{ x: 1, y: 1 }}
       >
-        <Text style={styles.text}>
+        <Text
+          style={[
+            styles.text,
+            type === "secondary" && { color: theme.colorBlack },
+          ]}
+        >
           {isLoading ? <ActivityIndicator color={theme.colorWhite} /> : title}
         </Text>
       </LinearGradient>

@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { Toaster } from "@/components/Toaster";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "@/api/login-user";
-import { useRouter } from "expo-router";
+import { useRouter, useNavigation } from "expo-router";
 import { SignInContext } from "./_layout";
 
 export default function LoginScreen() {
@@ -19,13 +19,14 @@ export default function LoginScreen() {
   const [, setIsSignIn] = useContext(SignInContext);
 
   const router = useRouter();
+  const navigation = useNavigation();
 
   const mutation = useMutation({
     mutationKey: ["login"],
     mutationFn: () => loginUser(username, password),
     onSuccess: (data) => {
       setIsSignIn(true);
-      router.push("/", {});
+      router.push({ pathname: "/", params: data });
     },
   });
 
@@ -42,8 +43,6 @@ export default function LoginScreen() {
 
     mutation.mutate();
   };
-
-  console.log("mutation", mutation);
 
   return (
     <View style={styles.screenWrapper}>

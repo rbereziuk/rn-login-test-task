@@ -45,6 +45,7 @@ export const Input: React.FC<Props> = ({
       <View
         style={[
           styles.inputWrapper,
+          Boolean(value) && !isFocused && styles.inputWrapperWithValue,
           isFocused && styles.focusedInput,
           isError && styles.errorInput,
         ]}
@@ -54,7 +55,7 @@ export const Input: React.FC<Props> = ({
             Enter {placeholder}
           </Text>
         )}
-        {(isFocused || Boolean(value)) && (
+        {isFocused && (
           <Text style={[styles.label, isError && styles.errorText]}>
             {placeholder}
           </Text>
@@ -64,7 +65,7 @@ export const Input: React.FC<Props> = ({
           onChangeText={handleTextChange}
           onBlur={handleBlur}
           clearButtonMode="unless-editing"
-          style={{ height: 40 }}
+          style={[styles.input, !isFocused && { fontSize: 16 }]}
           {...otherProps}
         />
       </View>
@@ -87,8 +88,18 @@ const styles = StyleSheet.create({
     borderColor: "#D8E2E6",
     height: 53,
     borderRadius: 8,
-    paddingHorizontal: 8,
+    paddingHorizontal: 10,
     justifyContent: "flex-end",
+  },
+  inputWrapperWithValue: {
+    justifyContent: "center",
+  },
+  input: {
+    height: 40,
+    margin: 0,
+  },
+  inputWithValue: {
+    fontSize: 16,
   },
   placeholder: {
     fontSize: 16,
