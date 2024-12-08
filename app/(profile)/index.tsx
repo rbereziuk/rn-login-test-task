@@ -1,9 +1,11 @@
 import { Button } from "@/components/Button";
-import { useLocalSearchParams, useNavigation } from "expo-router";
-import { useLayoutEffect } from "react";
+import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
+import { useContext, useLayoutEffect } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
+import { SignInContext } from "../_layout";
 
 export default function Profile() {
+  const router = useRouter();
   const navigation = useNavigation();
   const user = useLocalSearchParams();
 
@@ -11,13 +13,17 @@ export default function Profile() {
     navigation.setOptions({ title: `Hi, ${user.firstName} ${user.lastName}` });
   });
 
+  const [, setIsSignIn] = useContext(SignInContext);
+
+  const handleLogout = () => {
+    setIsSignIn(false);
+    router.dismissAll();
+    router.replace("/");
+  };
+
   return (
     <ScrollView style={styles.wrapper}>
-      <Button
-        title="Logout"
-        type="secondary"
-        onPress={() => alert("Pressed")}
-      />
+      <Button title="Logout" type="secondary" onPress={handleLogout} />
       <Text>{JSON.stringify(user)}</Text>
     </ScrollView>
   );

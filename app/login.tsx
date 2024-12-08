@@ -6,7 +6,7 @@ import { useContext, useState } from "react";
 import { Toaster } from "@/components/Toaster";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "@/api/login-user";
-import { useRouter, useNavigation } from "expo-router";
+import { useRouter } from "expo-router";
 import { SignInContext } from "./_layout";
 
 export default function LoginScreen() {
@@ -19,7 +19,6 @@ export default function LoginScreen() {
   const [, setIsSignIn] = useContext(SignInContext);
 
   const router = useRouter();
-  const navigation = useNavigation();
 
   const mutation = useMutation({
     mutationKey: ["login"],
