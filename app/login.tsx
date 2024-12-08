@@ -2,12 +2,12 @@ import { StyleSheet, View } from "react-native";
 import { StatusBar } from "expo-status-bar";
 import { Button } from "@/components/Button";
 import { Input } from "@/components/Input";
-import { useContext, useState } from "react";
+import { useState } from "react";
 import { Toaster } from "@/components/Toaster";
 import { useMutation } from "@tanstack/react-query";
 import { loginUser } from "@/api/login-user";
-import { useRouter } from "expo-router";
-import { SignInContext } from "./_layout";
+import { useAuth } from "@/hooks/useAuth";
+import { User } from "@/api/types/User";
 
 export default function LoginScreen() {
   const [username, setUsername] = useState("");
@@ -16,16 +16,14 @@ export default function LoginScreen() {
     username: false,
     password: false,
   });
-  const [, setIsSignIn] = useContext(SignInContext);
 
-  const router = useRouter();
+  const { login } = useAuth();
 
   const mutation = useMutation({
     mutationKey: ["login"],
     mutationFn: () => loginUser(username, password),
-    onSuccess: (data) => {
-      setIsSignIn(true);
-      router.push({ pathname: "/", params: data });
+    onSuccess: (data: User) => {
+      login(data);
     },
   });
 

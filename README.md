@@ -12,4 +12,4 @@ Create a login form for the user:
 - [x] On the Profile screen, show the user's data from the API
 - [x] Only authorized users can go to the Profile screen
 - [x] If the user clicks on the Logout button, we have to unlog the user and redirect to Home
-- [ ] If the user is not logged in or the token is invalid, we automatically redirect to Home from the Profile screen. That is, for example, if a user is on the Profile screen and their session suddenly becomes invalid, app should automatically log out
+- [x] If the user is not logged in or the token is invalid, we automatically redirect to Home from the Profile screen. That is, for example, if a user is on the Profile screen and their session suddenly becomes invalid, app should automatically log out

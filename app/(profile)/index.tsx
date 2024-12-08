@@ -1,11 +1,10 @@
 import { Button } from "@/components/Button";
-import { useLocalSearchParams, useNavigation, useRouter } from "expo-router";
-import { useContext, useLayoutEffect } from "react";
+import { useAuth } from "@/hooks/useAuth";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { useEffect, useLayoutEffect } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
-import { SignInContext } from "../_layout";
 
 export default function Profile() {
-  const router = useRouter();
   const navigation = useNavigation();
   const user = useLocalSearchParams();
 
@@ -13,17 +12,20 @@ export default function Profile() {
     navigation.setOptions({ title: `Hi, ${user.firstName} ${user.lastName}` });
   });
 
-  const [, setIsSignIn] = useContext(SignInContext);
+  const { logout, checkSession } = useAuth();
 
-  const handleLogout = () => {
-    setIsSignIn(false);
-    router.dismissAll();
-    router.replace("/");
-  };
+  useEffect(() => {
+    const validateSession = async () => {
+      await checkSession();
+    };
+    const intervalId = setInterval(validateSession, 60000); // Check every minute
+
+    return () => clearInterval(intervalId);
+  }, []);
 
   return (
     <ScrollView style={styles.wrapper}>
-      <Button title="Logout" type="secondary" onPress={handleLogout} />
+      <Button title="Logout" type="secondary" onPress={logout} />
       <Text>{JSON.stringify(user)}</Text>
     </ScrollView>
   );

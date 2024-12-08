@@ -1,9 +1,9 @@
+import { useAuth } from "@/hooks/useAuth";
 import { Redirect, Stack } from "expo-router";
 import { useContext } from "react";
-import { SignInContext } from "../_layout";
 
 export default function ProfileLayout() {
-  const [isSignIn] = useContext(SignInContext);
+  const { isSignIn } = useAuth();
 
   if (!isSignIn) {
     return <Redirect href="/home" />;
