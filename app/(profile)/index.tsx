@@ -1,8 +1,8 @@
-import { Button } from "@/components/Button";
-import { useAuth } from "@/hooks/useAuth";
-import { useLocalSearchParams, useNavigation } from "expo-router";
 import { useEffect, useLayoutEffect } from "react";
 import { ScrollView, StyleSheet, Text } from "react-native";
+import { useLocalSearchParams, useNavigation } from "expo-router";
+import { Button } from "@/components/Button";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function Profile() {
   const navigation = useNavigation();
@@ -15,10 +15,7 @@ export default function Profile() {
   const { logout, checkSession } = useAuth();
 
   useEffect(() => {
-    const validateSession = async () => {
-      await checkSession();
-    };
-    const intervalId = setInterval(validateSession, 60000); // Check every minute
+    const intervalId = setInterval(checkSession, 60000);
 
     return () => clearInterval(intervalId);
   }, []);

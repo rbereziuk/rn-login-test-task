@@ -1,6 +1,6 @@
-import { theme } from "@/theme";
-import { LinearGradient } from "expo-linear-gradient";
 import { StyleSheet, Text, Pressable, ActivityIndicator } from "react-native";
+import { LinearGradient } from "expo-linear-gradient";
+import { theme } from "@/theme";
 
 interface Props {
   title: string;
@@ -19,7 +19,7 @@ export const Button: React.FC<Props> = ({
 }) => {
   return (
     <Pressable
-      style={[styles.contaier, disabled && { opacity: 0.34 }]}
+      style={[styles.contaier, disabled && styles.disabled]}
       onPress={onPress}
       disabled={disabled}
     >
@@ -70,5 +70,8 @@ const styles = StyleSheet.create({
     fontSize: 16,
     fontWeight: "500",
     fontFamily: "Noto Sans", // TODO: check fonts
+  },
+  disabled: {
+    opacity: 0.34,
   },
 });

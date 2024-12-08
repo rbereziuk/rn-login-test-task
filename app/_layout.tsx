@@ -8,10 +8,10 @@ export default function AppLayout() {
   return (
     <QueryClientProvider client={queryClient}>
       <AuthProvider>
-        <Stack>
-          <Stack.Screen name="(profile)" options={{ headerShown: false }} />
-          <Stack.Screen name="home" options={{ headerShown: false }} />
-          <Stack.Screen name="login" options={{ headerShown: false }} />
+        <Stack screenOptions={{ headerShown: false }}>
+          <Stack.Screen name="(profile)" />
+          <Stack.Screen name="home" />
+          <Stack.Screen name="login" />
         </Stack>
       </AuthProvider>
     </QueryClientProvider>

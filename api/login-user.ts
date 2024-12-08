@@ -1,5 +1,7 @@
+const API_URL = "https://dummyjson.com";
+
 export async function loginUser(username: string, password: string) {
-  return fetch("https://dummyjson.com/auth/login", {
+  return fetch(`${API_URL}/auth/login`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({

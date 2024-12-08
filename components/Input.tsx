@@ -14,6 +14,8 @@ interface Props extends TextInputProps {
    * margin bottom
    */
   mb?: number;
+  value: string;
+  placeholder: string;
   isError?: boolean;
   onTextChange: Dispatch<SetStateAction<string>>;
 }
@@ -85,7 +87,7 @@ const styles = StyleSheet.create({
   },
   inputWrapper: {
     borderWidth: 1,
-    borderColor: "#D8E2E6",
+    borderColor: theme.colorInputWrapper,
     height: 53,
     borderRadius: 8,
     paddingHorizontal: 10,
@@ -103,7 +105,7 @@ const styles = StyleSheet.create({
   },
   placeholder: {
     fontSize: 16,
-    color: "#879399",
+    color: theme.colorInputPlaceholder,
     position: "absolute",
     left: 10,
     top: 15,
@@ -121,9 +123,9 @@ const styles = StyleSheet.create({
     borderColor: theme.colorDarkBlue,
   },
   errorInput: {
-    borderColor: "#FF3336",
+    borderColor: theme.colorError,
   },
   errorText: {
-    color: "#FF3336",
+    color: theme.colorError,
   },
 });

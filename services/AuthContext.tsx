@@ -1,19 +1,20 @@
 import { useRouter } from "expo-router";
-import { createContext, useState } from "react";
+import { createContext, PropsWithChildren, useState } from "react";
 
 export const AuthContext = createContext<{
   isSignIn: boolean;
   setIsSignIn: React.Dispatch<React.SetStateAction<boolean>>;
-  login: <T>(data?: T) => void;
+  login: <T extends {}>(data?: T) => void;
   logout: () => void;
+  checkSession: () => Promise<boolean | undefined>;
 }>();
 
-export function AuthProvider(props) {
+export function AuthProvider(props: PropsWithChildren) {
   const [isSignIn, setIsSignIn] = useState(false);
 
   const router = useRouter();
 
-  const login = <T extends {}>(userData: T) => {
+  const login = <T extends {}>(userData?: T) => {
     setIsSignIn(true);
     router.push({ pathname: "/", params: userData });
   };

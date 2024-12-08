@@ -5,4 +5,8 @@ export const theme = {
   colorLightBlue: "#51C7FE",
   colorButtonShadow: "#338BFF66",
   colorToasterError: "#FF0000",
+  colorError: "#FF3336",
+
+  colorInputWrapper: "#D8E2E6",
+  colorInputPlaceholder: "#879399",
 };

@@ -1,6 +1,5 @@
-import { useAuth } from "@/hooks/useAuth";
 import { Redirect, Stack } from "expo-router";
-import { useContext } from "react";
+import { useAuth } from "@/hooks/useAuth";
 
 export default function ProfileLayout() {
   const { isSignIn } = useAuth();

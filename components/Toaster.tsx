@@ -4,13 +4,13 @@ import { theme } from "@/theme";
 
 interface Props {
   text: string | undefined;
-  type: "error";
+  type: "error" | "info";
   style?: ViewStyle;
 }
 
 export const Toaster: React.FC<Props> = ({ text, type, style }) => {
   return (
-    <View style={[styles.wrapper, style]}>
+    <View style={[styles.wrapper, type === "error" && styles.error, style]}>
       <AntDesign name="exclamationcircleo" size={24} color={theme.colorWhite} />
       <Text style={styles.text}>{text}</Text>
     </View>
@@ -19,13 +19,15 @@ export const Toaster: React.FC<Props> = ({ text, type, style }) => {
 
 const styles = StyleSheet.create({
   wrapper: {
-    backgroundColor: theme.colorToasterError,
     width: "100%",
     borderRadius: 8,
     height: 53,
     paddingHorizontal: 10,
     flexDirection: "row",
     alignItems: "center",
+  },
+  error: {
+    backgroundColor: theme.colorToasterError,
   },
   text: {
     color: theme.colorWhite,
