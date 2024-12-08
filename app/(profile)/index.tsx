@@ -1,5 +1,5 @@
 import { useEffect, useLayoutEffect } from "react";
-import { ScrollView, StyleSheet, Text } from "react-native";
+import { ScrollView, StyleSheet, Text, View } from "react-native";
 import { useLocalSearchParams, useNavigation } from "expo-router";
 import { Button } from "@/components/Button";
 import { useAuth } from "@/hooks/useAuth";
@@ -23,7 +23,9 @@ export default function Profile() {
   return (
     <ScrollView style={styles.wrapper}>
       <Button title="Logout" type="secondary" onPress={logout} />
-      <Text>{JSON.stringify(user)}</Text>
+      <View style={styles.userData}>
+        <Text>{JSON.stringify(user)}</Text>
+      </View>
     </ScrollView>
   );
 }
@@ -32,5 +34,8 @@ const styles = StyleSheet.create({
   wrapper: {
     flex: 1,
     padding: 20,
+  },
+  userData: {
+    marginTop: 30,
   },
 });
